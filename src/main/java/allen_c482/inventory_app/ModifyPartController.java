@@ -35,7 +35,6 @@ public class ModifyPartController {
     @FXML private Button cancelModifyPart;
     @FXML private Button modifyPart;
     @FXML private ToggleGroup togglePartSource;
-    @FXML private TableView<Part> partsTable;
 
     /**
      * Event handler for the "Cancel" button.
@@ -153,23 +152,27 @@ public class ModifyPartController {
         });
 
         // get selected part from table
-        System.out.println(id);
+        int selectedPartId = MainController.getPartId();
+        Part part = Inventory.lookupPart(selectedPartId);
 
-        //get product from id
-//        Part part = Inventory.lookupPart(id);
-//        System.out.println(part.getName());
+        //get source type
+            //set radio button
+            //set label text?
 
-        //set radio button
         //get values
+        String inv = Integer.toString(part.getStock());
+        String price = Double.toString(part.getPrice());
+        String max = Integer.toString(part.getMax());
+        String min = Integer.toString(part.getMin());
 
         //get inputs on load
-        modifyPartID.setText(String.valueOf(id));
-        modifyPartName.setText("Part Name");
-        modifyPartInv.setText("3");
-        modifyPartPrice.setText("44.99");
-        modifyPartMax.setText("4");
-        modifyPartMin.setText("1");
-        modifyPartSource.setText("3");
+        modifyPartID.setText(String.valueOf(part.getId()));
+        modifyPartName.setText(part.getName());
+        modifyPartInv.setText(inv);
+        modifyPartPrice.setText(price);
+        modifyPartMax.setText(max);
+        modifyPartMin.setText(min);
+        modifyPartSource.setText("placeholder");
 
         //modifyPartSourceLabel.setText(partLabel);
     }

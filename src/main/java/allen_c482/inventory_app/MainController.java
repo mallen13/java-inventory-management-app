@@ -1,17 +1,14 @@
 package allen_c482.inventory_app;
 
 import java.net.URL;
-
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXMLLoader;
@@ -31,6 +28,9 @@ public class MainController implements Initializable {
      * Helper class instance variable
      */
     Helpers myHelpers = new Helpers();
+
+    //State Variable for modifty part to know what is selected
+    private static int selectedPartId;
 
     /**
      * Filtered Part List
@@ -109,14 +109,55 @@ public class MainController implements Initializable {
      * Handles Deleting parts from list
      */
     @FXML void deletePartHandler(ActionEvent event) {
-        System.out.println("Delete Part");
+        //get part
+        Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
+
+        //if no row selected
+        if (selectedPart == null) {
+            myHelpers.showAlert("Invalid Selection", "No Item Selected");
+            return;
+        }
+
+        //conform remove
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm");
+        alert.setHeaderText("Are you sure?");
+        alert.setContentText("Choose an option.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            if (Inventory.deletePart(selectedPart) == false) {
+                myHelpers.showAlert("Remove Error", "Unable to Remove.");
+            };
+            ;
+        }
     }
 
     /**
      * Handles deleting products
      */
     @FXML void deleteProductHandler(ActionEvent event) {
-        System.out.println("Delete Product");
+        //get part
+        Product selectedProduct = productsTable.getSelectionModel().getSelectedItem();
+
+        //if no row selected
+        if (selectedProduct == null) {
+            myHelpers.showAlert("Invalid Selection", "No Item Selected");
+            return;
+        }
+
+        //conform remove
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm");
+        alert.setHeaderText("Are you sure?");
+        alert.setContentText("Choose an option.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            if (Inventory.deleteProduct(selectedProduct) == false) {
+                myHelpers.showAlert("Remove Error", "Unable to Remove. Please ensure no associated projects.");
+            };
+        }
     }
 
     /**
@@ -126,6 +167,13 @@ public class MainController implements Initializable {
      */
     @FXML void exit(ActionEvent event) {
         System.exit(0);
+    }
+
+    /**
+     * Get part ID
+     */
+    public static int getPartId() {
+        return selectedPartId;
     }
 
     /**
@@ -141,14 +189,16 @@ public class MainController implements Initializable {
             return;
         }
 
-            //change scene
-            myHelpers.changeScene(
-                    "modifyPartForm.fxml",
-                    600,
-                    400,
-                    "Modify Part",
-                    event
-            );
+        this.selectedPartId = selectedPart.getId();
+
+        //change scene
+        myHelpers.changeScene(
+                "modifyPartForm.fxml",
+                600,
+                400,
+                "Modify Part",
+                event
+        );
     }
 
     /**

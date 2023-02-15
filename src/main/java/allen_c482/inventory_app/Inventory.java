@@ -114,7 +114,7 @@ public class Inventory {
      * return true if the part was successfully deleted, false otherwise
      */
     public static boolean deleteProduct(Product selectedProduct) {
-        return allProducts.remove(selectedProduct);
+       return allProducts.remove(selectedProduct);
     }
 
     /**
