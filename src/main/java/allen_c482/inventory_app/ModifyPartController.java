@@ -1,5 +1,5 @@
 /**
- * The AddPartController class is the controller for the add part screen in the inventory management application.
+ * The modifyPartController class is the controller for the add part screen in the inventory management application.
  * It is responsible for handling user input, validating input, and creating new Part objects.
  *
  * @author Matt Allen. Student Number: 010945885
@@ -9,35 +9,33 @@ package allen_c482.inventory_app;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+
 import java.io.IOException;
 
 /**
  * Controller class for the add part screen.
  */
-public class AddPartController {
+public class ModifyPartController {
     //Variables
     Helpers myHelpers = new Helpers();
     private int id;
 
     //JavaFX Declarations
-    @FXML private TextField addPartSource;
-    @FXML private TextField addPartInv;
-    @FXML private TextField addPartMax;
-    @FXML private TextField addPartMin;
-    @FXML private TextField addPartName;
-    @FXML private RadioButton addPartOption1;
-    @FXML private RadioButton addPartOption2;
-    @FXML private TextField addPartPrice;
-    @FXML private TextField addPartID;
-    @FXML private Label addPartSourceLabel;
-    @FXML private Button cancelAddPart;
-    @FXML private Button addPart;
+    @FXML private TextField modifyPartSource;
+    @FXML private TextField modifyPartInv;
+    @FXML private TextField modifyPartMax;
+    @FXML private TextField modifyPartMin;
+    @FXML private TextField modifyPartName;
+    @FXML private RadioButton modifyPartOption1;
+    @FXML private RadioButton modifyPartOption2;
+    @FXML private TextField modifyPartPrice;
+    @FXML private TextField modifyPartID;
+    @FXML private Label modifyPartSourceLabel;
+    @FXML private Button cancelModifyPart;
+    @FXML private Button modifyPart;
     @FXML private ToggleGroup togglePartSource;
+    @FXML private TableView<Part> partsTable;
 
     /**
      * Event handler for the "Cancel" button.
@@ -46,7 +44,7 @@ public class AddPartController {
      * RUNTIME ERROR: was missing @FXML and had to add
      * @param  event
      */
-    @FXML void cancelAddPart(ActionEvent event) throws IOException {
+    @FXML void cancelModifyPart(ActionEvent event) throws IOException {
         myHelpers.changeScene(
                 "mainForm.fxml",
                 1021,
@@ -63,15 +61,15 @@ public class AddPartController {
      * FUTURE ENHANCEMENT: would like to find way to make this method smaller
      * @param event
      */
-    @FXML void addPart(ActionEvent event) throws IOException {
+    @FXML void modifyPart(ActionEvent event) throws IOException {
         //Variables
         Part newPart;
-        String name = addPartName.getText();
-        String invInput = addPartInv.getText();
-        String priceInput = addPartPrice.getText();
-        String maxInput = addPartMax.getText();
-        String minInput = addPartMin.getText();
-        String sourceInput = addPartSource.getText();
+        String name = modifyPartName.getText();
+        String invInput = modifyPartInv.getText();
+        String priceInput = modifyPartPrice.getText();
+        String maxInput = modifyPartMax.getText();
+        String minInput = modifyPartMin.getText();
+        String sourceInput = modifyPartSource.getText();
 
         //validate for empty inputs, alert if so
         if (myHelpers.isAnyEmpty(name,invInput,priceInput,maxInput,minInput,sourceInput)) {
@@ -110,7 +108,7 @@ public class AddPartController {
         }
 
         //if in-house is toggled
-        if (addPartOption1.isSelected()) {
+        if  (modifyPartOption1.isSelected()) {
             //try/catch for int
             int source = 0;
             try {
@@ -145,19 +143,35 @@ public class AddPartController {
     void initialize() {
         //set radio button toggle
         togglePartSource.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == addPartOption1) {
+            if (newValue == modifyPartOption1) {
                 //toggle option 1
-                addPartSourceLabel.setText("Machine ID");
-            } else if (newValue == addPartOption2) {
+                modifyPartSourceLabel.setText("Machine ID");
+            } else if (newValue == modifyPartOption2) {
                 //toggle option 2
-                System.out.println("hi");
-                addPartSourceLabel.setText("Company Name");
+                modifyPartSourceLabel.setText("Company Name");
             }
         });
 
+        // get selected part from table
+        System.out.println(id);
+
+        //get product from id
+//        Part part = Inventory.lookupPart(id);
+//        System.out.println(part.getName());
+
+        //set radio button
+        //get values
+
         //get inputs on load
-        id = Inventory.getAllParts().size() + 1;
-        addPartID.setText(String.valueOf(id));
+        modifyPartID.setText(String.valueOf(id));
+        modifyPartName.setText("Part Name");
+        modifyPartInv.setText("3");
+        modifyPartPrice.setText("44.99");
+        modifyPartMax.setText("4");
+        modifyPartMin.setText("1");
+        modifyPartSource.setText("3");
+
+        //modifyPartSourceLabel.setText(partLabel);
     }
 }
 

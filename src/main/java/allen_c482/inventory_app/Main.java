@@ -1,3 +1,7 @@
+/**
+ * @author Matt Allen. Student Number: 010945885
+ */
+
 package allen_c482.inventory_app;
 
 import javafx.application.Application;
@@ -7,9 +11,27 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * FUTURE ENHANCEMENT: strive to not have any duplicated code or methods, re-factor
+ * FUTURE ENHANCEMENT: persist date through DB or file storage
+ * FUTURE ENHANCEMENT: be even more specific on input error handling
+ * FUTURE ENHANCEMENT: evaluate UI for accessability standards
+ */
+
+/**
+ * RUNTIME ERROR: Runtime errors here when any input was empty.Had to add thorough validation to fix.
+ * RUNTIME ERROR: was missing @FXML and had to add to method name
+ * RUNTIME ERROR: an inventory method was not listed as static at first, had to add static modifier
+ */
+
+/**
+ * Main Class to run the app
+ */
 public class Main extends Application {
-    @Override
-    public void start(Stage stage) throws IOException {
+    /**
+     * Start method
+     */
+    @Override public void start(Stage stage) throws IOException {
 
         //Default Parts
         Part tires = new InHouse(1, "Bike Tires", 30.00, 10, 5, 30, 1);
@@ -36,6 +58,9 @@ public class Main extends Application {
         stage.show();
     }
 
+    /**
+     * Main Function to launch the app
+     */
     public static void main(String[] args) {
         launch();
     }
