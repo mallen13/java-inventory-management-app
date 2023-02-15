@@ -10,27 +10,27 @@ public class Outsourced extends Part {
     /**
      * stores teh machineId value
      */
-    private int machineId;
+    private String companyName;
 
     /**
      * Constructs an Outsourced part with the specified information.
      */
     public Outsourced(int id, String name, double price, int stock, int min, int max, String companyName) {
         super(id, name, price, stock, min, max);
-        this.machineId = machineId;
+        this.companyName = companyName;
     }
 
     /**
      * Sets the machine ID of the Outsourced part.
      */
-    public void setMachineId(int machineId) {
-        this.machineId = machineId;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     /**
      * Returns the machine ID of the Outsourced part.
      */
-    public int getMachineId() {
-        return machineId;
+    public String getCompanyName() {
+        return this.companyName;
     }
 }

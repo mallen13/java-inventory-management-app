@@ -31,7 +31,7 @@
       <TextField fx:id="modifyPartName" layoutX="148.0" layoutY="129.0" />
       <Label layoutX="51.0" layoutY="236.0" text="Max" />
       <TextField fx:id="modifyPartSource" layoutX="148.0" layoutY="264.0" />
-      <Label fx:id="addPartSourceLabel" layoutX="50.0" layoutY="268.0" text="MachineID" />
+      <Label fx:id="modifyPartSourceLabel" layoutX="50.0" layoutY="268.0" text="MachineID" />
       <TextField fx:id="modifyPartPrice" layoutX="148.0" layoutY="200.0" />
       <Label layoutX="333.0" layoutY="236.0" text="Min" />
       <TextField fx:id="modifyPartMin" layoutX="363.0" layoutY="232.0" />

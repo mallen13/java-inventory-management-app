@@ -75,7 +75,6 @@ public class AddPartController {
 
         //validate for empty inputs, alert if so
         if (myHelpers.isAnyEmpty(name,invInput,priceInput,maxInput,minInput,sourceInput)) {
-            System.err.println("Empty Inputs");
             myHelpers.showAlert("Invalid Inputs", "No Empty Inputs");
             return;
         };
@@ -150,7 +149,6 @@ public class AddPartController {
                 addPartSourceLabel.setText("Machine ID");
             } else if (newValue == addPartOption2) {
                 //toggle option 2
-                System.out.println("hi");
                 addPartSourceLabel.setText("Company Name");
             }
         });

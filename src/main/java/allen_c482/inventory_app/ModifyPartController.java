@@ -7,6 +7,7 @@
 
 package allen_c482.inventory_app;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -19,7 +20,7 @@ import java.io.IOException;
 public class ModifyPartController {
     //Variables
     Helpers myHelpers = new Helpers();
-    private int id;
+    private int selectedPartId = MainController.getPartId();
 
     //JavaFX Declarations
     @FXML private TextField modifyPartSource;
@@ -61,8 +62,14 @@ public class ModifyPartController {
      * @param event
      */
     @FXML void modifyPart(ActionEvent event) throws IOException {
-        //Variables
-        Part newPart;
+
+        //Item Variables
+        Part updatedPart = Inventory.lookupPart(selectedPartId);
+        ObservableList partsList = Inventory.getAllParts();
+        int partIdx = partsList.indexOf(updatedPart);
+
+
+        //Input Variables
         String name = modifyPartName.getText();
         String invInput = modifyPartInv.getText();
         String priceInput = modifyPartPrice.getText();
@@ -72,7 +79,6 @@ public class ModifyPartController {
 
         //validate for empty inputs, alert if so
         if (myHelpers.isAnyEmpty(name,invInput,priceInput,maxInput,minInput,sourceInput)) {
-            System.err.println("Empty Inputs");
             myHelpers.showAlert("Invalid Inputs", "No Empty Inputs");
             return;
         };
@@ -82,7 +88,6 @@ public class ModifyPartController {
         int inv = 0;
         int min = 0;
         int max = 0;
-
         try {
             price = Double.parseDouble(priceInput);
             inv = Integer.parseInt(invInput);
@@ -100,7 +105,7 @@ public class ModifyPartController {
             return;
         }
 
-        //ensure Max > min
+        //ensure inventory between min and max
         if (inv < min || inv > max) {
             myHelpers.showAlert("Invalid Inputs", "Inventory must be between min and max");
             return;
@@ -116,14 +121,12 @@ public class ModifyPartController {
                 myHelpers.showAlert("Invalid Input", "Type Error. Machine ID must be an Integer");
                 return;
             };
-            newPart = new InHouse(id, name, price, inv, min, max, source);
-            //if outsourced is toggled
+            updatedPart = new InHouse(selectedPartId, name, price, inv, min, max, source);
         } else {
-            newPart = new Outsourced(id, name, price, inv, min, max, sourceInput);
+            updatedPart = new Outsourced(selectedPartId, name, price, inv, min, max, sourceInput);
         }
 
-        //add item
-        Inventory.addPart(newPart);
+        Inventory.updatePart(partIdx,updatedPart);
 
         //load main
         myHelpers.changeScene(
@@ -156,8 +159,14 @@ public class ModifyPartController {
         Part part = Inventory.lookupPart(selectedPartId);
 
         //get source type
-            //set radio button
-            //set label text?
+        if (part.getClass() == Outsourced.class) {
+            modifyPartOption2.setSelected(true);
+            String sourceValue = ((Outsourced) part).getCompanyName();
+            modifyPartSource.setText(sourceValue);
+        } else {
+            int sourceValue = ((InHouse) part).getMachineId();
+            modifyPartSource.setText(Integer.toString(sourceValue));
+        }
 
         //get values
         String inv = Integer.toString(part.getStock());
@@ -172,9 +181,6 @@ public class ModifyPartController {
         modifyPartPrice.setText(price);
         modifyPartMax.setText(max);
         modifyPartMin.setText(min);
-        modifyPartSource.setText("placeholder");
-
-        //modifyPartSourceLabel.setText(partLabel);
     }
 }
 
