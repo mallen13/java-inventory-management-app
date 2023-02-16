@@ -8,21 +8,19 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 
 /**
  * Main Class to run the app
- *  FUTURE ENHANCEMENT: strive to not have any duplicated code or methods, re-factor
- *  FUTURE ENHANCEMENT: persist date through DB or file storage
- *  FUTURE ENHANCEMENT: be even more specific on input error handling
- *  FUTURE ENHANCEMENT: evaluate UI for accessibility standards
- *  RUNTIME ERROR: Runtime errors here when any input was empty.Had to add thorough validation to fix.
- *  RUNTIME ERROR: was missing @FXML and had to add to method name
- *  RUNTIME ERROR: an inventory method was not listed as static at first, had to add static modifier
+ * @author Matt Allen, C482
+ * FUTURE ENHANCEMENT It would be great to a login option to protect the data and also download
+ * the data as a CSV file. Persisting data through a database could be helpful.
+ * RUNTIME ERROR: When first running the add new part form, I did not have error handling for
+ * empty inputs, this resulted in a runtime error. I had to add a try/catch block to resolve.
  */
 public class Main extends Application {
+
     /**
      * Start method
      */

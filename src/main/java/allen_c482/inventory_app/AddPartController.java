@@ -41,9 +41,6 @@ public class AddPartController {
 
     /**
      * Event handler for the "Cancel" button.
-     * FUTURE ENHANCEMENT: would like the additional stage to be
-     * centered on the computer when changing
-     * RUNTIME ERROR: was missing @FXML and had to add
      * @param  event
      */
     @FXML void cancelAddPart(ActionEvent event) throws IOException {
@@ -58,9 +55,6 @@ public class AddPartController {
 
     /**
      * Event handler for the "Add" button.
-     * RUNTIME ERRORS: Runtime errors here when any input was empty.
-     * Had to add thorough validation to fix.
-     * FUTURE ENHANCEMENT: would like to find way to make this method smaller
      * @param event
      */
     @FXML void addPart(ActionEvent event) throws IOException {

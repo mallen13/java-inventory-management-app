@@ -5,21 +5,21 @@ import javafx.collections.FXCollections;
 
 /**
  * This class represents the inventory of parts and products for the inventory management system.
- * @author Matt Allen. Student Number: 010945885
  */
 public class Inventory {
     /**
      * CREATES allParts observable list
      */
+
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     /**
      * CREATES allProducts observale list
      */
+
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
     /**
      * Adds a part to the inventory.
-     * RUNTIME ERROR: this was not listed as static at first
      * @param newPart
      */
     public static void addPart(Part newPart) {
@@ -94,8 +94,6 @@ public class Inventory {
 
     /**
      * Updates a product in the inventory.
-     * FUTURE ENHANCEMENT: perhaps getters/setters could return a
-     * confirmation string
      */
     public static void updateProduct(int index, Product newProduct) {
         allProducts.set(index, newProduct);

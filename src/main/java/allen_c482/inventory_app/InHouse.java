@@ -3,7 +3,6 @@ package allen_c482.inventory_app;
 
 /**
  * Inherited class that extends Part
- * @author Matt Allen. Student Number: 010945885
  */
 public class InHouse extends Part {
 

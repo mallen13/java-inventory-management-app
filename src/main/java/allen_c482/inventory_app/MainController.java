@@ -15,9 +15,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Updates a product in the inventory.
- * FUTURE ENHANCEMENT: perhaps getters/setters could return a
- * confirmation string
- *  @author Matt Allen. Student Number: 010945885
  */
 public class MainController implements Initializable {
 
@@ -85,7 +82,6 @@ public class MainController implements Initializable {
     /**
      * Handles Adding parts to list
      */
-    //Handlers
     @FXML void addPartHandler(ActionEvent event) throws IOException {
         //change scene
         myHelpers.changeScene(

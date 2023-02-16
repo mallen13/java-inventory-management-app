@@ -11,7 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 
-
+/**
+ * Handles adding a new product
+ */
 public class AddProductController {
 
     /**
