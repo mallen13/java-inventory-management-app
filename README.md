@@ -2,7 +2,7 @@
 
 This is a Java desktop application designed to help a small manufacturing organization manage its inventory system. It provides a user-friendly interface to add, modify, and delete parts and products, as well as search for existing inventory items.
 
-Main form screenshot
+![main_form](https://github.com/mallen13/java-inventory-management-app/blob/master/main_app.png)
 
 ## Getting Started
 
@@ -19,9 +19,9 @@ To run the application, open the project in NetBeans or IntelliJ IDEA and run th
 
 To add a new part or product, click on the "Add" button and fill in the required information in the form that pops up. You can also modify or delete an existing part or product by selecting it in the table and clicking on the "Modify" or "Delete" buttons.
 
-Add Part form screenshot
+![part_form](https://github.com/mallen13/java-inventory-management-app/blob/master/add_part.png)
 
-Add Product form screenshot
+![product_form](https://github.com/mallen13/java-inventory-management-app/blob/master/add_product.png)
 
 The application also allows you to search for parts and products by ID or name. Simply type the search query in the text field at the top of the main form and press the "Search" button.
 
