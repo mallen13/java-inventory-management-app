@@ -11,21 +11,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * FUTURE ENHANCEMENT: strive to not have any duplicated code or methods, re-factor
- * FUTURE ENHANCEMENT: persist date through DB or file storage
- * FUTURE ENHANCEMENT: be even more specific on input error handling
- * FUTURE ENHANCEMENT: evaluate UI for accessability standards
- */
-
-/**
- * RUNTIME ERROR: Runtime errors here when any input was empty.Had to add thorough validation to fix.
- * RUNTIME ERROR: was missing @FXML and had to add to method name
- * RUNTIME ERROR: an inventory method was not listed as static at first, had to add static modifier
- */
 
 /**
  * Main Class to run the app
+ *  FUTURE ENHANCEMENT: strive to not have any duplicated code or methods, re-factor
+ *  FUTURE ENHANCEMENT: persist date through DB or file storage
+ *  FUTURE ENHANCEMENT: be even more specific on input error handling
+ *  FUTURE ENHANCEMENT: evaluate UI for accessibility standards
+ *  RUNTIME ERROR: Runtime errors here when any input was empty.Had to add thorough validation to fix.
+ *  RUNTIME ERROR: was missing @FXML and had to add to method name
+ *  RUNTIME ERROR: an inventory method was not listed as static at first, had to add static modifier
  */
 public class Main extends Application {
     /**
@@ -43,10 +38,14 @@ public class Main extends Application {
         Inventory.addPart(seats);
         Inventory.addPart(handles);
 
-        //Default Produtcs
-        Product bike = new Product(1, "Bike", 30.00, 400, 5, 30);
-        Product wagon = new Product(2, "Wagon", 90.00, 100, 5, 40);
-        Product scooter = new Product(3, "Scooter", 30.00, 100, 10, 20);
+        //Default Products
+        Product bike = new Product(1, "Bike", 30.00, 14, 5, 30);
+        Product wagon = new Product(2, "Wagon", 90.00, 5, 5, 40);
+        Product scooter = new Product(3, "Scooter", 30.00, 19, 10, 20);
+        bike.addAssociatedPart(tires);
+        bike.addAssociatedPart(frames);
+        bike.addAssociatedPart(seats);
+        bike.addAssociatedPart(handles);
         Inventory.addProduct(bike);
         Inventory.addProduct(wagon);
         Inventory.addProduct(scooter);

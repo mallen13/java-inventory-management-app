@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="577.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allen_c482.inventory_app.AddProductController">
+<AnchorPane prefHeight="577.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="allen_c482.inventory_app.ModifyProductController">
    <children>
       <AnchorPane layoutX="9.0" layoutY="21.0" prefHeight="533.0" prefWidth="956.0" style="-fx-border-color: black; -fx-border-radius: 5;">
          <children>
-            <Label layoutX="41.0" layoutY="30.0" text="Add Product">
+            <Label layoutX="41.0" layoutY="30.0" text="Modify Product">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -29,8 +29,8 @@
             <TextField fx:id="productPriceInput" layoutX="97.0" layoutY="224.0" />
             <Label layoutX="275.0" layoutY="274.0" text="Min" />
             <TextField fx:id="productMinInput" layoutX="304.0" layoutY="269.0" />
-            <Button fx:id="saveProductBtn" layoutX="768.0" layoutY="474.0" mnemonicParsing="false" onAction="#addProduct" text="Save" />
-            <Button fx:id="cancelSaveProductBtn" layoutX="855.0" layoutY="474.0" mnemonicParsing="false" onAction="#cancelAddProduct" text="Cancel" />
+            <Button fx:id="saveProductBtn" layoutX="768.0" layoutY="474.0" mnemonicParsing="false" onAction="#saveProduct" text="Save" />
+            <Button fx:id="cancelSaveProductBtn" layoutX="855.0" layoutY="474.0" mnemonicParsing="false" onAction="#cancelSaveProduct" text="Cancel" />
             <TextField fx:id="partSearch" layoutX="785.0" layoutY="14.0" onKeyTyped="#searchParts" promptText="Search  by Part ID or name" />
             <TableView fx:id="partsTable" layoutX="537.0" layoutY="46.0" prefHeight="141.0" prefWidth="406.0">
                <columns>

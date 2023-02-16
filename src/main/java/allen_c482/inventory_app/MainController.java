@@ -1,6 +1,6 @@
 package allen_c482.inventory_app;
 
-import java.net.URL;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,11 +10,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.Parent;
-import javafx.stage.Stage;
+import java.net.URL;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Updates a product in the inventory.
@@ -29,8 +26,9 @@ public class MainController implements Initializable {
      */
     Helpers myHelpers = new Helpers();
 
-    //State Variable for modifty part to know what is selected
+    //State Variable for modify part to know what is selected
     private static int selectedPartId;
+    private static int selectedProductId;
 
     /**
      * Filtered Part List
@@ -102,13 +100,20 @@ public class MainController implements Initializable {
     /**
      * Handles adding parts to list
      */
-    @FXML void addProductHandler(ActionEvent event) {
+    @FXML void addProductHandler(ActionEvent event) throws IOException {
+        myHelpers.changeScene(
+                "addProductForm.fxml",
+                1000,
+                600,
+                "Add Part",
+                event
+        );
     }
 
     /**
      * Handles Deleting parts from list
      */
-    @FXML void deletePartHandler(ActionEvent event) {
+    @FXML void deletePartHandler() {
         //get part
         Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
 
@@ -136,7 +141,7 @@ public class MainController implements Initializable {
     /**
      * Handles deleting products
      */
-    @FXML void deleteProductHandler(ActionEvent event) {
+    @FXML void deleteProductHandler() {
         //get part
         Product selectedProduct = productsTable.getSelectionModel().getSelectedItem();
 
@@ -145,6 +150,23 @@ public class MainController implements Initializable {
             myHelpers.showAlert("Invalid Selection", "No Item Selected");
             return;
         }
+
+        //alert if associated parts
+        ObservableList parts = selectedProduct.getAllAssociatedParts();
+        AtomicBoolean associatedParts = new AtomicBoolean(false);
+
+        parts.forEach( part -> {
+            if (Inventory.getAllParts().contains(part)) {
+                associatedParts.set(true);
+            }
+        });
+
+        if (associatedParts.get()) {
+            myHelpers.showAlert("Remove Error", "Unable to Remove. Product is associated with Parts.");
+            return;
+        };
+        //check if any associated parts in inventory
+                //if so, error message and return
 
         //conform remove
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -177,6 +199,13 @@ public class MainController implements Initializable {
     }
 
     /**
+     * Get Product ID
+     */
+    public static int getProductId() {
+        return selectedProductId;
+    }
+
+    /**
      * Handles Modifying the parts
      */
     @FXML void modifyPartHandler(ActionEvent event) throws IOException {
@@ -204,8 +233,26 @@ public class MainController implements Initializable {
     /**
      * Handles modifying the product
      */
-    @FXML void modifyProductHandler(ActionEvent event) {
-        System.out.println("Modify Product");
+    @FXML void modifyProductHandler(ActionEvent event) throws IOException {
+        //get selected item
+        Product selectedProduct = productsTable.getSelectionModel().getSelectedItem();
+
+        //if no item selected
+        if (selectedProduct == null) {
+            myHelpers.showAlert("Invalid Selection", "No Item Selected");
+            return;
+        }
+
+        this.selectedProductId = selectedProduct.getId();
+
+        //change scene
+        myHelpers.changeScene(
+                "modifyProductForm.fxml",
+                1000,
+                600,
+                "Modify Product",
+                event
+        );
     }
 
     /**

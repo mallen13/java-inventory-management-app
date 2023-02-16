@@ -1,5 +1,6 @@
 package allen_c482.inventory_app;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -7,7 +8,7 @@ import javafx.collections.ObservableList;
  * @author Matt Allen. Student Number: 010945885
  */
 public class Product {
-    private ObservableList<Part> associatedParts;
+    private ObservableList<Part> associatedParts = FXCollections.observableArrayList();;
     private int id;
     private String name;
     private double price;

@@ -12,13 +12,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 
 
-public class AddProductController {
+public class ModifyProductController {
 
     /**
      * Variable Declarations
      */
     final private FilteredList<Part> partsFilteredList = new FilteredList<>(Inventory.getAllParts(), p -> true);
-    final private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
+    private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
     Helpers myHelpers = new Helpers();
     private int id;
     final private Product newProduct = new Product(0,"",00.00,0,0,0);
@@ -55,7 +55,27 @@ public class AddProductController {
         partName.setCellValueFactory(new PropertyValueFactory<>("name"));
         partPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
+        //get selected product ID
+        int selectedProductId = MainController.getProductId();
+        Product product = Inventory.lookupProduct(selectedProductId);
+
+        //get values
+        String inv = Integer.toString(product.getStock());
+        String price = Double.toString(product.getPrice());
+        String max = Integer.toString(product.getMax());
+        String min = Integer.toString(product.getMin());
+
+        //set inputs
+        //get inputs on load
+        productIDInput.setText(String.valueOf(product.getId()));
+        productNameInput.setText(product.getName());
+        productInvInput.setText(inv);
+        productPriceInput.setText(price);
+        productMaxInput.setText(max);
+        productMinInput.setText(min);
+
         //fill associated parts table on initialize
+        associatedParts = product.getAllAssociatedParts();
         associatedPartsTable.setItems(associatedParts);
         partID1.setCellValueFactory(new PropertyValueFactory<>("id"));
         partInventoryLevel1.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -82,7 +102,7 @@ public class AddProductController {
             return;
         }
 
-        //fill parts table on initialize
+        //fill parts table
         associatedParts.add(selectedPart);
         newProduct.addAssociatedPart(selectedPart);
     }
@@ -91,7 +111,7 @@ public class AddProductController {
     /**
      * Add a new product
      */
-    @FXML void addProduct(ActionEvent event) throws IOException  {
+    @FXML void saveProduct(ActionEvent event) throws IOException  {
         //Variables
         String name = productNameInput.getText();
         String invInput = productInvInput.getText();
@@ -135,7 +155,9 @@ public class AddProductController {
         }
 
         //add item
-        Inventory.addProduct(newProduct);
+        ObservableList productsList = Inventory.getAllProducts();
+        int productIdx = productsList.indexOf(newProduct);
+        Inventory.updateProduct(1,newProduct);
 
         //if in-house is toggled
         newProduct.setId(id);
@@ -161,7 +183,7 @@ public class AddProductController {
      * cancel button to go back to main screen
      * @param event
      */
-    @FXML void cancelAddProduct(ActionEvent event) throws IOException {
+    @FXML void cancelSaveProduct(ActionEvent event) throws IOException {
         myHelpers.changeScene(
                 "mainForm.fxml",
                 1021,
